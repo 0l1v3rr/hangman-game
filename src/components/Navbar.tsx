@@ -31,11 +31,13 @@ const Navbar = () => {
 
       <div className="ml-auto" />
 
-      <LinkButton
-        href="https://github.com/0l1v3rr/hangman-game"
-        icon={AiFillGithub}
-        text="Source Code"
-      />
+      <div className="hidden sm:block">
+        <LinkButton
+          href="https://github.com/0l1v3rr/hangman-game"
+          icon={AiFillGithub}
+          text="Source Code"
+        />
+      </div>
     </nav>
   );
 };
