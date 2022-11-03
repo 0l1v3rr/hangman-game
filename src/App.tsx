@@ -9,7 +9,7 @@ const App = () => {
       <Navbar />
 
       <section className="flex flex-col md:flex-row items-start px-4 mt-4 gap-4">
-        <Hangman phase={2} />
+        <Hangman phase={6} />
       </section>
     </div>
   );
