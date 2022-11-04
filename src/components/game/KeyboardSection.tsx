@@ -1,8 +1,9 @@
+import Keyboard from "../keyboard/Keyboard";
 import Word from "./Word";
 
 const KeyboardSection = () => {
   const word = "apple";
-  const guessedLetters = ["p", "e"];
+  const guessedLetters = ["p", "e", "x", "o"];
 
   return (
     <section className="bg-slate-400 w-full md:w-2/3 rounded-sm shadow-sm px-4 pt-2 pb-4 bg-opacity-85">
@@ -14,6 +15,7 @@ const KeyboardSection = () => {
       </div>
 
       <Word word={word} guessedLetters={guessedLetters} />
+      <Keyboard word={word} guessedLetters={guessedLetters} />
     </section>
   );
 };
