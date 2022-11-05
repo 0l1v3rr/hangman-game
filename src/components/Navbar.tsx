@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { AiFillGithub, AiOutlineBulb } from "react-icons/ai";
 import { BiReset } from "react-icons/bi";
 import { TbHanger } from "react-icons/tb";
 import Button from "./buttons/Button";
 import LinkButton from "./buttons/LinkButton";
 
-const Navbar = () => {
-  const [hints, setHints] = useState<number>(1);
+interface NavbarProps {
+  hints: number;
+  hint: () => void;
+  newGame: () => void;
+}
 
+const Navbar: FC<NavbarProps> = ({ hints, hint, newGame }) => {
   return (
     <nav className="w-screen flex items-center px-4 gap-3">
       <Button
-        onClick={() => {}}
+        onClick={() => hint()}
         icon={AiOutlineBulb}
         text={`Hint (${hints})`}
         disabled={hints <= 0}
@@ -23,7 +27,7 @@ const Navbar = () => {
         disabled={false}
       />
       <Button
-        onClick={() => {}}
+        onClick={() => newGame()}
         icon={BiReset}
         text="New Game"
         disabled={false}

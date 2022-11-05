@@ -3,12 +3,14 @@ import { FC } from "react";
 interface KeyProps {
   letter: string;
   status: "correct" | "wrong" | "default";
+  guessLetter: (letter: string) => void;
 }
 
 const Key: FC<KeyProps> = (props) => {
   return (
     <button
       type="button"
+      onClick={() => props.guessLetter(props.letter)}
       disabled={props.status === "correct" || props.status === "wrong"}
       className={`px-3 py-2 border border-solid uppercase leading-none text-lg
         font-semibold rounded-sm shadow-md transition-all duration-200 text-slate-900

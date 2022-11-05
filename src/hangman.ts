@@ -1,36 +1,42 @@
-import words from "./words.json";
-
-const getRandomWord = (): string => {
-  return words[Math.floor(Math.random() * words.length)];
-};
-
 export default class HangmanGame {
-  word: string;
-  guessedLetters: string[];
+  public word: string;
+  public guessedLetters: string[];
 
   // the phase is the count of the wrong letters
-  phase: number;
+  public phase: number;
 
-  constructor() {
-    this.word = getRandomWord();
+  public constructor(word: string) {
+    this.word = word;
     this.guessedLetters = [];
     this.phase = 0;
   }
 
-  newGame(): void {
-    this.word = getRandomWord();
-    this.guessedLetters = [];
-    this.phase = 0;
-  }
-
-  guessLetter(letter: string): void {
+  public guessLetter(letter: string): void {
     if (!this.word.includes(letter)) {
       this.phase++;
     }
-    this.guessedLetters.push(letter.toLowerCase());
+
+    if (!this.guessedLetters.includes(letter)) {
+      this.guessedLetters.push(letter.toLowerCase());
+    }
   }
 
-  isGuessed(): boolean {
+  public hint(): void {
+    let wordLetters = this.word.split("");
+    let result: string[] = [];
+
+    // collect the letters that haven't been guessed
+    for (const l of wordLetters) {
+      if (!this.guessedLetters.includes(l)) {
+        result.push(l);
+      }
+    }
+
+    // select a random letter from the result and add it to the guessed letters
+    this.guessedLetters.push(result[Math.floor(Math.random() * result.length)]);
+  }
+
+  public isGuessed(): boolean {
     if (this.phase >= 6) {
       return false;
     }
