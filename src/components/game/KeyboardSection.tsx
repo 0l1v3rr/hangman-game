@@ -6,12 +6,14 @@ interface KeyboardSectionProps {
   word: string;
   guessedLetters: string[];
   guessLetter: (letter: string) => void;
+  disableButtons: () => boolean;
 }
 
 const KeyboardSection: FC<KeyboardSectionProps> = ({
   guessedLetters,
   word,
   guessLetter,
+  disableButtons,
 }) => {
   return (
     <section className="bg-slate-400 w-full md:w-2/3 rounded-sm shadow-sm px-4 pt-2 pb-4 bg-opacity-85">
@@ -27,6 +29,7 @@ const KeyboardSection: FC<KeyboardSectionProps> = ({
         word={word}
         guessedLetters={guessedLetters}
         guessLetter={guessLetter}
+        disableButtons={disableButtons}
       />
     </section>
   );

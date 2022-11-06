@@ -21,11 +21,7 @@ const App = () => {
 
   const guessLetter = useCallback(
     (letter: string): void => {
-      if (game.phase >= 6) {
-        return;
-      }
-
-      if (game.isGuessed()) {
+      if (game.phase >= 6 || game.isGuessed()) {
         return;
       }
 
@@ -61,6 +57,8 @@ const App = () => {
     forceRerender();
   }, [game]);
 
+  const disableButtons = (): boolean => game.phase >= 6 || game.isGuessed();
+
   return (
     <div className="h-screen w-screen overflow-x-hidden bg-deer bg-cover bg-center pb-4">
       <Header />
@@ -72,6 +70,7 @@ const App = () => {
           word={game.word}
           guessedLetters={game.guessedLetters}
           guessLetter={guessLetter}
+          disableButtons={disableButtons}
         />
       </section>
     </div>
