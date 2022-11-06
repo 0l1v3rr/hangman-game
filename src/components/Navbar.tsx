@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AiFillGithub, AiOutlineBulb } from "react-icons/ai";
 import { BiReset } from "react-icons/bi";
 import { TbHanger } from "react-icons/tb";
@@ -8,10 +8,11 @@ import LinkButton from "./buttons/LinkButton";
 interface NavbarProps {
   hints: number;
   hint: () => void;
+  giveUp: () => void;
   newGame: () => void;
 }
 
-const Navbar: FC<NavbarProps> = ({ hints, hint, newGame }) => {
+const Navbar: FC<NavbarProps> = ({ hints, hint, newGame, giveUp }) => {
   return (
     <nav className="w-screen flex items-center px-4 gap-3">
       <Button
@@ -21,7 +22,7 @@ const Navbar: FC<NavbarProps> = ({ hints, hint, newGame }) => {
         disabled={hints <= 0}
       />
       <Button
-        onClick={() => {}}
+        onClick={() => giveUp()}
         icon={TbHanger}
         text="Give Up"
         disabled={false}

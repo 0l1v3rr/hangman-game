@@ -30,18 +30,26 @@ const App = () => {
     game.hint();
   }, [game, hints]);
 
-  const newGame = () => {
+  const newGame = useCallback(() => {
     if (game.isGuessed()) {
       setHints((prev) => prev + 1);
     }
 
     setGame(new HangmanGame(getRandomWord()));
-  };
+  }, [game]);
+
+  const giveUp = useCallback(() => {
+    if (game.isGuessed()) {
+      return;
+    }
+
+    game.giveUp();
+  }, [game]);
 
   return (
     <div className="h-screen w-screen overflow-x-hidden bg-deer bg-cover bg-center pb-4">
       <Header />
-      <Navbar hints={hints} hint={useHint} newGame={newGame} />
+      <Navbar hints={hints} hint={useHint} newGame={newGame} giveUp={giveUp} />
 
       <section className="flex flex-col md:flex-row items-start px-4 mt-4 gap-4">
         <Hangman phase={game.phase} />

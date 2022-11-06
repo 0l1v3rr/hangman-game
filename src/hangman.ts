@@ -36,6 +36,16 @@ export default class HangmanGame {
     this.guessedLetters.push(result[Math.floor(Math.random() * result.length)]);
   }
 
+  public giveUp(): void {
+    let wordLetters = this.word.split("");
+
+    for (const l of wordLetters) {
+      if (!this.guessedLetters.includes(l)) {
+        this.guessedLetters.push(l);
+      }
+    }
+  }
+
   public isGuessed(): boolean {
     if (this.phase >= 6) {
       return false;
