@@ -3,6 +3,7 @@ import Hangman from "./components/game/Hangman";
 import KeyboardSection from "./components/game/KeyboardSection";
 import Header from "./components/Header";
 import { useForceRerender } from "./components/hooks/useForceRerender";
+import { useLocalStorage } from "./components/hooks/useLocalStorage";
 import Navbar from "./components/Navbar";
 import HangmanGame from "./hangman";
 import words from "./words.json";
@@ -14,7 +15,7 @@ const getRandomWord = (): string => {
 const App = () => {
   const forceRerender = useForceRerender();
 
-  const [hints, setHints] = useState<number>(3);
+  const [hints, setHints] = useLocalStorage<number>("hints", 3);
   const [game, setGame] = useState<HangmanGame>(
     new HangmanGame(getRandomWord())
   );
@@ -26,6 +27,11 @@ const App = () => {
       }
 
       game.guessLetter(letter);
+
+      if (game.isGuessed()) {
+        setHints((prev: any) => prev + 1);
+      }
+
       forceRerender();
     },
     [game]
@@ -36,15 +42,11 @@ const App = () => {
       return;
     }
 
-    setHints((prev) => prev - 1);
+    setHints((prev: any) => prev - 1);
     game.hint();
   }, [game, hints]);
 
   const newGame = useCallback(() => {
-    if (game.isGuessed()) {
-      setHints((prev) => prev + 1);
-    }
-
     setGame(new HangmanGame(getRandomWord()));
   }, [game]);
 
