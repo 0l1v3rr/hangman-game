@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import Hangman from "./components/game/Hangman";
 import KeyboardSection from "./components/game/KeyboardSection";
 import Header from "./components/Header";
@@ -21,7 +21,7 @@ const App = () => {
 
   const guessLetter = useCallback(
     (letter: string): void => {
-      if (game.phase >= 6 || game.isGuessed()) {
+      if (game.phase >= 7 || game.isGuessed()) {
         return;
       }
 
@@ -57,7 +57,7 @@ const App = () => {
     forceRerender();
   }, [game]);
 
-  const disableButtons = (): boolean => game.phase >= 6 || game.isGuessed();
+  const disableButtons = (): boolean => game.phase >= 7 || game.isGuessed();
 
   return (
     <div className="h-screen w-screen overflow-x-hidden bg-deer bg-cover bg-center pb-4">

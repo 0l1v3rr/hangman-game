@@ -47,7 +47,7 @@ export default class HangmanGame {
   }
 
   public isGuessed(): boolean {
-    if (this.phase >= 6) {
+    if (this.phase >= 7) {
       return false;
     }
 
