@@ -1,6 +1,7 @@
 {
   "name": "hangman-game",
   "version": "0.1.0",
+  "homepage": "https://0l1v3rr.github.io/hangman-game",
   "private": true,
   "dependencies": {
     "@types/node": "^16.18.3",
@@ -15,7 +16,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,6 +40,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.18",
     "tailwindcss": "^3.2.1"
   }
