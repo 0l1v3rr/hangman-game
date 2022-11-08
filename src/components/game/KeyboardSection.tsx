@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Keyboard from "../keyboard/Keyboard";
 import Word from "./Word";
 
@@ -20,7 +20,8 @@ const KeyboardSection: FC<KeyboardSectionProps> = ({
       <div className="flex items-center justify-between gap-2">
         <div className="font-semibold text-zinc-900">The word</div>
         <div className="text-zinc-800">
-          {guessedLetters.length}/{word.length}
+          {[...guessedLetters].filter((l) => word.includes(l)).length}/
+          {word.length}
         </div>
       </div>
 
