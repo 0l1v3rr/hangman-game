@@ -15,7 +15,7 @@ const Key: FC<KeyProps> = (props) => {
       disabled={
         props.status === "correct" || props.status === "wrong" || props.disabled
       }
-      className={`px-3 py-2 border border-solid uppercase leading-none text-lg
+      className={`px-3 py-2 border border-solid uppercase leading-none text-lg select-none
         font-semibold rounded-sm shadow-md transition-all duration-200 text-slate-900
         ${
           props.status === "default" &&

@@ -1,7 +1,7 @@
 # Hangman Game
 
 A simple, web-based hangman game.  
-You can find the demo appliaction [here](https://0l1v3rr.github.io/hangman-game).
+You can find the demo application [here](https://0l1v3rr.github.io/hangman-game).
 
 <img src="./images/screenshot1.jpg" alt="Screenshot">
 

@@ -5,15 +5,20 @@ import Header from "./components/Header";
 import { useForceRerender } from "./components/hooks/useForceRerender";
 import { useLocalStorage } from "./components/hooks/useLocalStorage";
 import Navbar from "./components/Navbar";
+import BlurOverlay from "./components/popup/BlurOverlay";
+import LosePopup from "./components/popup/LosePopup";
+import WinPopup from "./components/popup/WinPopup";
 import HangmanGame from "./hangman";
 import words from "./words.json";
 
-const getRandomWord = (): string => {
-  return words[Math.floor(Math.random() * words.length)];
-};
+const getRandomWord = (): string =>
+  words[Math.floor(Math.random() * words.length)];
 
 const App = () => {
   const forceRerender = useForceRerender();
+
+  const [isWinPopupOpen, setWinPopupOpen] = useState<boolean>(false);
+  const [isLosePopupOpen, setLosePopupOpen] = useState<boolean>(false);
 
   const [hints, setHints] = useLocalStorage<number>("hints", 3);
   const [game, setGame] = useState<HangmanGame>(
@@ -28,8 +33,14 @@ const App = () => {
 
       game.guessLetter(letter);
 
+      if (game.phase >= 7 && !game.isGuessed()) {
+        setLosePopupOpen(true);
+      }
+
       if (game.isGuessed()) {
         setHints((prev: any) => prev + 1);
+        setWinPopupOpen(true);
+        return;
       }
 
       forceRerender();
@@ -63,6 +74,20 @@ const App = () => {
 
   return (
     <div className="h-screen w-screen overflow-x-hidden bg-deer bg-cover bg-center pb-4">
+      <BlurOverlay isActive={isWinPopupOpen || isLosePopupOpen} />
+
+      <WinPopup
+        isActive={isWinPopupOpen}
+        closePopup={() => setWinPopupOpen(false)}
+        newGame={newGame}
+      />
+
+      <LosePopup
+        isActive={isLosePopupOpen}
+        closePopup={() => setLosePopupOpen(false)}
+        newGame={newGame}
+      />
+
       <Header />
       <Navbar hints={hints} hint={useHint} newGame={newGame} giveUp={giveUp} />
 
