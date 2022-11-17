@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Hangman from "./components/game/Hangman";
 import KeyboardSection from "./components/game/KeyboardSection";
 import Header from "./components/Header";
@@ -17,9 +17,11 @@ const getRandomWord = (): string =>
 const App = () => {
   const forceRerender = useForceRerender();
 
+  // state to store the popups' state
   const [isWinPopupOpen, setWinPopupOpen] = useState<boolean>(false);
   const [isLosePopupOpen, setLosePopupOpen] = useState<boolean>(false);
 
+  // state to store the game details
   const [hints, setHints] = useLocalStorage<number>("hints", 3);
   const [game, setGame] = useState<HangmanGame>(
     new HangmanGame(getRandomWord())
@@ -70,7 +72,30 @@ const App = () => {
     forceRerender();
   }, [game]);
 
-  const disableButtons = (): boolean => game.phase >= 7 || game.isGuessed();
+  // this function detects whether the key buttons should be clickable or not
+  const disableButtons = (): boolean =>
+    game.phase >= 7 || game.isGuessed() || isWinPopupOpen || isLosePopupOpen;
+
+  const handleKeyPress = useCallback(
+    (event: KeyboardEvent) => {
+      if (disableButtons() || event.isComposing || event.repeat) {
+        return;
+      }
+
+      if ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(event.key.toUpperCase())) {
+        guessLetter(event.key);
+      }
+    },
+    [game]
+  );
+
+  useEffect(() => {
+    // attach the event listener
+    document.addEventListener("keydown", handleKeyPress);
+
+    // remove the event listener
+    return () => document.removeEventListener("keydown", handleKeyPress);
+  }, [handleKeyPress]);
 
   return (
     <div className="h-screen w-screen overflow-x-hidden bg-deer bg-cover bg-center pb-4">
