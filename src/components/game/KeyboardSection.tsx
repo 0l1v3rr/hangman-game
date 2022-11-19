@@ -15,13 +15,23 @@ const KeyboardSection: FC<KeyboardSectionProps> = ({
   guessLetter,
   disableButtons,
 }) => {
+  const [guessedLetterCount, setGuessedLetterCount] = useState(0);
+
+  // calculate the count of the guessed letters
+  useEffect(() => {
+    setGuessedLetterCount(
+      [...guessedLetters].reduce((c, l) => {
+        return (c += word.split("").filter((w) => w === l).length);
+      }, 0)
+    );
+  });
+
   return (
     <section className="bg-slate-400 w-full md:w-2/3 rounded-sm shadow-sm px-4 pt-2 pb-4 bg-opacity-85">
       <div className="flex items-center justify-between gap-2">
         <div className="font-semibold text-zinc-900">The word</div>
         <div className="text-zinc-800">
-          {[...guessedLetters].filter((l) => word.includes(l)).length}/
-          {word.length}
+          {guessedLetterCount}/{word.length}
         </div>
       </div>
 

@@ -5,6 +5,7 @@ interface LosePopupProps {
   isActive: boolean;
   closePopup: () => void;
   newGame: () => void;
+  word: string;
 }
 
 const LosePopup: FC<LosePopupProps> = (props) => {
@@ -34,7 +35,7 @@ const LosePopup: FC<LosePopupProps> = (props) => {
           text-slate-800 bg-opacity-70 shadow-lg"
       >
         Unfortunately, you weren't able the guess this one! <br />
-        Better luck next time!
+        The word was <span className="font-semibold">{props.word}</span>.
       </div>
 
       <div className="px-2 pb-2">

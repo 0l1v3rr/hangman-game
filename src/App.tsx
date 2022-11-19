@@ -111,6 +111,7 @@ const App = () => {
         isActive={isLosePopupOpen}
         closePopup={() => setLosePopupOpen(false)}
         newGame={newGame}
+        word={game.word}
       />
 
       <Header />
