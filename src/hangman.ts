@@ -44,6 +44,8 @@ export default class HangmanGame {
         this.guessedLetters.push(l);
       }
     }
+
+    this.phase = 7;
   }
 
   public isGuessed(): boolean {

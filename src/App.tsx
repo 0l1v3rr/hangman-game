@@ -57,6 +57,10 @@ const App = () => {
 
     setHints((prev: any) => prev - 1);
     game.hint();
+
+    if (game.isGuessed()) {
+      setWinPopupOpen(true);
+    }
   }, [game, hints]);
 
   const newGame = useCallback(() => {
